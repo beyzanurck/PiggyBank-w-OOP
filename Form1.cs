@@ -19,6 +19,8 @@ namespace PiggyBank
         Random random = new Random();
         double volumeIncAmount;
 
+        int pushTheButton = 1;
+
         private void Form1_Load(object sender, EventArgs e)
         {
             listOfMoney.Add(new BankNote() 
@@ -64,20 +66,55 @@ namespace PiggyBank
             {
                 if (cmbSelectMoney.SelectedItem == item.name)
                 {
-                    piggyBank.moneyBox.Add(item);
-                    currentVolume += (item.volume + item.volume*volumeIncAmount);
-
-                    if (currentVolume > piggyBank.volume)
+                    if (item is BankNote && pushTheButton == 0 )
                     {
-                        piggyBank.moneyBox.Remove(item);
-                        currentVolume -= (item.volume + item.volume * volumeIncAmount);
+                        MessageBox.Show("You must fold banknotes to put into the box!");
+                        break;
+                    }
+                    else
+                    {
+                        piggyBank.moneyBox.Add(item);
+                        currentVolume += (item.volume + item.volume * volumeIncAmount);
+
+                        if (currentVolume > piggyBank.volume)
+                        {
+                            piggyBank.moneyBox.Remove(item);
+                            currentVolume -= (item.volume + item.volume * volumeIncAmount);
+                        }
+
+                        richTextBox1.Text = volumeIncAmount.ToString() + ", " + item.volume.ToString() + ", " + currentVolume.ToString();
                     }
 
-                    richTextBox1.Text = volumeIncAmount.ToString() + ", " + item.volume.ToString() + ", " + currentVolume.ToString();
                 }
-
-
             }
         }
+
+        private void btnFoldMoney_Click(object sender, EventArgs e)
+        {
+            //foreach (var item in listOfMoney)
+            //{
+            //    if (cmbSelectMoney.SelectedItem == item.name)
+            //    {
+            //        if (item is BankNote)
+            //        {
+            //            bool isFolded = (BankNote) item.
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show("This is coin, you can't fold it!");
+            //            break;
+            //        }
+
+            //    }
+            //}
+        }
+
+        private void btnShakeBox_Click(object sender, EventArgs e)
+        {
+            currentVolume = piggyBank.Shake(piggyBank.moneyBox, currentVolume);
+
+            richTextBox1.Text = currentVolume.ToString();
+        }
     }
+    
 }

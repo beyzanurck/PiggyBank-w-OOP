@@ -70,6 +70,7 @@
             this.btnFoldMoney.TabIndex = 2;
             this.btnFoldMoney.Text = "Fold Money";
             this.btnFoldMoney.UseVisualStyleBackColor = true;
+            this.btnFoldMoney.Click += new System.EventHandler(this.btnFoldMoney_Click);
             // 
             // btnShakeBox
             // 
@@ -79,6 +80,7 @@
             this.btnShakeBox.TabIndex = 2;
             this.btnShakeBox.Text = "Shake The Box";
             this.btnShakeBox.UseVisualStyleBackColor = true;
+            this.btnShakeBox.Click += new System.EventHandler(this.btnShakeBox_Click);
             // 
             // btnBreakBox
             // 

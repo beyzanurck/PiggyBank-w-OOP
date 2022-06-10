@@ -9,7 +9,16 @@ namespace PiggyBank
     class PiggyBank
     {
         public double volume = 100;
-        public void Shake() { }
+        public double Shake(List<Money> moneyBox, double currentVolume) 
+        {
+            currentVolume = 0;
+            foreach (var item in moneyBox)
+            {
+                currentVolume += (item.volume + item.volume*0.25);
+            }
+
+            return currentVolume;
+        }
 
         public void Break() { }
 

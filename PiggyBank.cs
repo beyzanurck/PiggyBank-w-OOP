@@ -8,12 +8,12 @@ namespace PiggyBank
 {
     class PiggyBank
     {
-        public double volume;
+        public double volume = 100;
         public void Shake() { }
 
         public void Break() { }
 
-        List<Money> moneyBox = new List<Money>();
+        public List<Money> moneyBox = new List<Money>();
 
     }
 }

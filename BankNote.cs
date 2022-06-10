@@ -9,7 +9,6 @@ namespace PiggyBank
 {
     class BankNote : Money, IBankNoteVolume
     {
-        
         public double Width { get; set; }
 
         public double Length { get; set; }
@@ -21,5 +20,11 @@ namespace PiggyBank
             Width = Width / 4;
             Thickness = 4 * Thickness;
         }
+
+        public override double volume
+        {
+            get { return Width * Length * Thickness;}
+        }
+
     }
 }

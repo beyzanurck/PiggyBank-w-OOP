@@ -9,7 +9,11 @@ namespace PiggyBank
     class Money
     {
         public string name;
-        public double volume;
+        public virtual double volume
+        {
+            get { return 0; }
+        }
+
         public double amount;
     }
 }

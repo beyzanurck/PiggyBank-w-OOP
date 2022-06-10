@@ -16,6 +16,9 @@ namespace PiggyBank
         PiggyBank piggyBank = new PiggyBank();
         double currentVolume = 0;
 
+        Random random = new Random();
+        double volumeIncAmount;
+
         private void Form1_Load(object sender, EventArgs e)
         {
             listOfMoney.Add(new BankNote() 
@@ -54,15 +57,26 @@ namespace PiggyBank
 
         private void btnAddMoney_Click(object sender, EventArgs e)
         {
+            volumeIncAmount = random.Next(25, 76);
+            volumeIncAmount = volumeIncAmount / 100;
+
             foreach (var item in listOfMoney)
             {
                 if (cmbSelectMoney.SelectedItem == item.name)
                 {
                     piggyBank.moneyBox.Add(item);
-                    currentVolume += item.volume;
+                    currentVolume += (item.volume + item.volume*volumeIncAmount);
 
-                    MessageBox.Show(currentVolume.ToString());
+                    if (currentVolume > piggyBank.volume)
+                    {
+                        piggyBank.moneyBox.Remove(item);
+                        currentVolume -= (item.volume + item.volume * volumeIncAmount);
+                    }
+
+                    richTextBox1.Text = volumeIncAmount.ToString() + ", " + item.volume.ToString() + ", " + currentVolume.ToString();
                 }
+
+
             }
         }
     }

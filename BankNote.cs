@@ -23,7 +23,7 @@ namespace PiggyBank
 
         public override double volume
         {
-            get { return Width * Length * Thickness;}
+            get { return Width * Length * Thickness / 1000;}
         }
 
     }

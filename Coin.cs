@@ -14,7 +14,7 @@ namespace PiggyBank
 
         public override double volume
         {
-            get { return Pi * Diameter * Diameter * Height; }
+            get { return Pi * Diameter * Diameter * Height / 1000; }
         }
 
     }

@@ -37,6 +37,7 @@
             this.pctTheBox = new System.Windows.Forms.PictureBox();
             this.pctBrokenOne = new System.Windows.Forms.PictureBox();
             this.pctFixedOne = new System.Windows.Forms.PictureBox();
+            this.cmbSelectMoney = new System.Windows.Forms.ComboBox();
             this.panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctTheBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctBrokenOne)).BeginInit();
@@ -126,11 +127,23 @@
             this.pctFixedOne.TabIndex = 2;
             this.pctFixedOne.TabStop = false;
             // 
+            // cmbSelectMoney
+            // 
+            this.cmbSelectMoney.Font = new System.Drawing.Font("Segoe UI Historic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbSelectMoney.ForeColor = System.Drawing.Color.Black;
+            this.cmbSelectMoney.FormattingEnabled = true;
+            this.cmbSelectMoney.Location = new System.Drawing.Point(190, 233);
+            this.cmbSelectMoney.Name = "cmbSelectMoney";
+            this.cmbSelectMoney.Size = new System.Drawing.Size(154, 23);
+            this.cmbSelectMoney.TabIndex = 4;
+            this.cmbSelectMoney.Text = "Please Select Money";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(517, 253);
+            this.ClientSize = new System.Drawing.Size(517, 277);
+            this.Controls.Add(this.cmbSelectMoney);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.btnBreakBox);
             this.Controls.Add(this.btnShakeBox);
@@ -159,6 +172,7 @@
         private System.Windows.Forms.PictureBox pctFixedOne;
         private System.Windows.Forms.PictureBox pctBrokenOne;
         private System.Windows.Forms.PictureBox pctTheBox;
+        private System.Windows.Forms.ComboBox cmbSelectMoney;
     }
 }
 

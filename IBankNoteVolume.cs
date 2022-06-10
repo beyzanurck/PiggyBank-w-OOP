@@ -10,7 +10,7 @@ namespace PiggyBank
     {
         double Width { get; }
         double Length { get; }
-        double thickness { get; }
+        double Thickness { get; }
         void Fold();
 
     }

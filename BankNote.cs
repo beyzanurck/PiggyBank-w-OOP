@@ -4,20 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace PiggyBank
 {
     class BankNote : Money, IBankNoteVolume
     {
         
-        public double Width => throw new NotImplementedException();
+        public double Width { get; set; }
 
-        public double Length => throw new NotImplementedException();
+        public double Length { get; set; }
 
-        public double thickness => throw new NotImplementedException();
+        public double Thickness { get; set; }
 
         public void Fold()
         {
-            throw new NotImplementedException();
+            Width = Width / 4;
+            Thickness = 4 * Thickness;
         }
     }
 }

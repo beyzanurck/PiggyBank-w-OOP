@@ -18,8 +18,9 @@ namespace PiggyBank
 
         Random random = new Random();
         double volumeIncAmount;
+        double amountOfMoney;
 
-        int pushTheButton = 1;
+        int numberOfBroken;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -59,23 +60,26 @@ namespace PiggyBank
 
         private void btnAddMoney_Click(object sender, EventArgs e)
         {
-            volumeIncAmount = random.Next(25, 76);
-            volumeIncAmount = volumeIncAmount / 100;
-
-            foreach (var item in listOfMoney)
+            if (numberOfBroken<2)
             {
-                if (cmbSelectMoney.SelectedItem == item.name)
+                volumeIncAmount = random.Next(25, 76);
+                volumeIncAmount = volumeIncAmount / 100;
+
+                foreach (var item in listOfMoney)
                 {
-                    if (item is BankNote && pushTheButton == 0 )
+                    if (cmbSelectMoney.SelectedItem == item.name)
                     {
-                        MessageBox.Show("You must fold banknotes to put into the box!");
-                        break;
-                    }
-                    else
-                    {
+                        //if (item is BankNote)
+                        //{
+                        //    MessageBox.Show("You must fold banknotes to put into the box!");
+                        //    break;
+                        //}
+                        //else
+                        //{}
                         piggyBank.moneyBox.Add(item);
                         currentVolume += (item.volume + item.volume * volumeIncAmount);
 
+                        //currentVolume = piggyBank.GetVolume(piggyBank.moneyBox);
                         if (currentVolume > piggyBank.volume)
                         {
                             piggyBank.moneyBox.Remove(item);
@@ -83,10 +87,15 @@ namespace PiggyBank
                         }
 
                         richTextBox1.Text = volumeIncAmount.ToString() + ", " + item.volume.ToString() + ", " + currentVolume.ToString();
+                        
                     }
-
                 }
             }
+            else
+            {
+                MessageBox.Show("Your box is broken so you can't use it anymore!");
+            }
+           
         }
 
         private void btnFoldMoney_Click(object sender, EventArgs e)
@@ -97,7 +106,7 @@ namespace PiggyBank
             //    {
             //        if (item is BankNote)
             //        {
-            //            bool isFolded = (BankNote) item.
+            //            bool isFolded = ((BankNote)item).Fold();
             //        }
             //        else
             //        {
@@ -114,6 +123,35 @@ namespace PiggyBank
             currentVolume = piggyBank.Shake(piggyBank.moneyBox, currentVolume);
 
             richTextBox1.Text = currentVolume.ToString();
+        }
+
+        private void btnBreakBox_Click(object sender, EventArgs e)
+        {
+            numberOfBroken = piggyBank.Break();
+
+            if (numberOfBroken == 1 || numberOfBroken == 2)
+            {
+                pctBrokenOne.Left = 3;
+
+                amountOfMoney = piggyBank.GetAmount(ref piggyBank.moneyBox, amountOfMoney);
+                currentVolume = 0;
+                MessageBox.Show(String.Format("You have {0} TL", amountOfMoney.ToString()));
+
+                if (numberOfBroken == 1)
+                {
+                    pctFixedOne.Left = 3;
+                    MessageBox.Show("Remember! You can fix it only once!");
+                }
+                else
+                {
+                    pctFixedOne.Visible = false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Your box is already broken! You can't fix it anymore");
+            }
+           
         }
     }
     

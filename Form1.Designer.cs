@@ -90,6 +90,7 @@
             this.btnBreakBox.TabIndex = 2;
             this.btnBreakBox.Text = "Break The Box";
             this.btnBreakBox.UseVisualStyleBackColor = true;
+            this.btnBreakBox.Click += new System.EventHandler(this.btnBreakBox_Click);
             // 
             // panel
             // 

@@ -11,7 +11,7 @@ namespace PiggyBank
         double Width { get; }
         double Length { get; }
         double Thickness { get; }
-        bool Fold(int count);
+        bool Fold();
 
     }
 }

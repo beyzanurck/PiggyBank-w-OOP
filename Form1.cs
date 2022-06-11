@@ -21,6 +21,7 @@ namespace PiggyBank
         double amountOfMoney;
 
         int numberOfBroken;
+        bool isFolded = false;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -69,25 +70,24 @@ namespace PiggyBank
                 {
                     if (cmbSelectMoney.SelectedItem == item.name)
                     {
-                        //if (item is BankNote)
-                        //{
-                        //    MessageBox.Show("You must fold banknotes to put into the box!");
-                        //    break;
-                        //}
-                        //else
-                        //{}
-                        piggyBank.moneyBox.Add(item);
-                        currentVolume += (item.volume + item.volume * volumeIncAmount);
-
-                        //currentVolume = piggyBank.GetVolume(piggyBank.moneyBox);
-                        if (currentVolume > piggyBank.volume)
+                        if (item is BankNote && isFolded == false)
                         {
-                            piggyBank.moneyBox.Remove(item);
-                            currentVolume -= (item.volume + item.volume * volumeIncAmount);
+                            MessageBox.Show("You must fold banknotes to put into the box!");
+                            break;
                         }
-
-                        richTextBox1.Text = volumeIncAmount.ToString() + ", " + item.volume.ToString() + ", " + currentVolume.ToString();
-                        
+                        else
+                        {
+                            piggyBank.moneyBox.Add(item);
+                            currentVolume += (item.volume + item.volume * volumeIncAmount);
+                            //currentVolume = piggyBank.GetVolume(piggyBank.moneyBox);
+                            if (currentVolume > piggyBank.volume)
+                            {
+                                piggyBank.moneyBox.Remove(item);
+                                currentVolume -= (item.volume + item.volume * volumeIncAmount);
+                            }
+                            isFolded = false;
+                            richTextBox1.Text = volumeIncAmount.ToString() + ", " + item.volume.ToString() + ", " + currentVolume.ToString();
+                        }
                     }
                 }
             }
@@ -100,22 +100,23 @@ namespace PiggyBank
 
         private void btnFoldMoney_Click(object sender, EventArgs e)
         {
-            //foreach (var item in listOfMoney)
-            //{
-            //    if (cmbSelectMoney.SelectedItem == item.name)
-            //    {
-            //        if (item is BankNote)
-            //        {
-            //            bool isFolded = ((BankNote)item).Fold();
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show("This is coin, you can't fold it!");
-            //            break;
-            //        }
+            foreach (var item in listOfMoney)
+            {
+                if (cmbSelectMoney.SelectedItem == item.name)
+                {
+                    if (item is BankNote)
+                    {
+                      isFolded = ((BankNote)item).Fold();
+                      MessageBox.Show("The banknote is folded!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("This is coin, you can't fold it!");
+                        break;
+                    }
 
-            //    }
-            //}
+                }
+            }
         }
 
         private void btnShakeBox_Click(object sender, EventArgs e)

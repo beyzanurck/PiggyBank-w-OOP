@@ -15,19 +15,12 @@ namespace PiggyBank
 
         public double Thickness { get; set; }
 
-        public bool Fold(int pushTheButton)
+        public bool Fold()
         {
             Width = Width / 4;
             Thickness = 4 * Thickness;
 
-            if (pushTheButton == 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return true;
         }
 
         public override double volume

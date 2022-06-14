@@ -9,18 +9,13 @@ namespace PiggyBank
         public Form1()
         {
             InitializeComponent();
+            progressOfVolume.Visible = true;
         }
 
-        List<Money> listOfMoney = new List<Money>();      
-
+        List<Money> listOfMoney = new List<Money>();  
         PiggyBank piggyBank = new PiggyBank();
-        double currentVolume = 0;
+        ProgressBar progressBar = new ProgressBar();
 
-        Random random = new Random();
-        double volumeIncAmount;
-        double amountOfMoney;
-
-        int numberOfBroken;
         bool isFolded = false;
 
         private void Form1_Load(object sender, EventArgs e)
@@ -51,21 +46,19 @@ namespace PiggyBank
             listOfMoney.Add(new Coin()
             { name = "1 krs", amount = 0.01, Diameter = 16.5, Height = 1.35 });
 
-
             foreach (var item in listOfMoney)
             {
                 cmbSelectMoney.Items.Add(item.name);
             }
 
+            progressBar.Maximum = Convert.ToInt32(piggyBank.volume);
+            progressBar.Minimum = 0;
         }
 
         private void btnAddMoney_Click(object sender, EventArgs e)
         {
-            if (numberOfBroken<2)
+            if (piggyBank.brokenNumber < 2)
             {
-                volumeIncAmount = random.Next(25, 76);
-                volumeIncAmount = volumeIncAmount / 100;
-
                 foreach (var item in listOfMoney)
                 {
                     if (cmbSelectMoney.SelectedItem == item.name)
@@ -77,68 +70,80 @@ namespace PiggyBank
                         }
                         else
                         {
-                            piggyBank.moneyBox.Add(item);
-                            currentVolume += (item.volume + item.volume * volumeIncAmount);
-                            //currentVolume = piggyBank.GetVolume(piggyBank.moneyBox);
-                            if (currentVolume > piggyBank.volume)
+                            if (!piggyBank.AddMoney(item))
                             {
-                                piggyBank.moneyBox.Remove(item);
-                                currentVolume -= (item.volume + item.volume * volumeIncAmount);
+                                MessageBox.Show("The box is full");
                             }
+
                             isFolded = false;
-                            richTextBox1.Text = volumeIncAmount.ToString() + ", " + item.volume.ToString() + ", " + currentVolume.ToString();
+                            richTextBox1.Text = piggyBank.currentVolume.ToString() + ", " + piggyBank.currentAmount.ToString();
                         }
+
+                        progressOfVolume.Value = Convert.ToInt32(piggyBank.currentVolume);
+                        progressBar.Update();
                     }
                 }
             }
             else
             {
                 MessageBox.Show("Your box is broken so you can't use it anymore!");
-            }
-           
+            }           
         }
 
         private void btnFoldMoney_Click(object sender, EventArgs e)
         {
-            foreach (var item in listOfMoney)
+            if (piggyBank.brokenNumber <2)
             {
-                if (cmbSelectMoney.SelectedItem == item.name)
+                foreach (var item in listOfMoney)
                 {
-                    if (item is BankNote)
+                    if (cmbSelectMoney.SelectedItem == item.name)
                     {
-                      isFolded = ((BankNote)item).Fold();
-                      MessageBox.Show("The banknote is folded!");
+                        if (item is BankNote)
+                        {
+                            isFolded = ((BankNote)item).Fold();
+                            break;
+                        }
+                        else
+                        {
+                            MessageBox.Show("This is coin, you can't fold it!");
+                            break;
+                        }
                     }
-                    else
-                    {
-                        MessageBox.Show("This is coin, you can't fold it!");
-                        break;
-                    }
-
                 }
             }
+            else
+            {
+                MessageBox.Show("You can't add more money since the box is broken");
+            }
+            
         }
 
         private void btnShakeBox_Click(object sender, EventArgs e)
         {
-            currentVolume = piggyBank.Shake(piggyBank.moneyBox, currentVolume);
-
-            richTextBox1.Text = currentVolume.ToString();
+            if (piggyBank.brokenNumber < 2)
+            {
+                richTextBox1.Text = piggyBank.Shake().ToString();
+                progressOfVolume.Value = Convert.ToInt32(piggyBank.currentVolume);
+                progressBar.Update();
+            }
+            else
+            {
+                MessageBox.Show("You can't shake the box since it is broken");
+            }
         }
 
         private void btnBreakBox_Click(object sender, EventArgs e)
         {
-            numberOfBroken = piggyBank.Break();
+            double amountOfMoney = piggyBank.GetAmount();
+            piggyBank.Break();
 
-            if (numberOfBroken == 1 || numberOfBroken == 2)
+            if (piggyBank.brokenNumber == 1 || piggyBank.brokenNumber == 2)
             {
                 pctBrokenOne.Left = 3;
 
-                amountOfMoney = piggyBank.GetAmount(ref piggyBank.moneyBox, amountOfMoney);
-                currentVolume = 0;
                 MessageBox.Show(String.Format("You have {0} TL", amountOfMoney.ToString()));
 
-                if (numberOfBroken == 1)
+                if (piggyBank.brokenNumber == 1)
                 {
                     pctFixedOne.Left = 3;
                     MessageBox.Show("Remember! You can fix it only once!");
@@ -152,8 +157,9 @@ namespace PiggyBank
             {
                 MessageBox.Show("Your box is already broken! You can't fix it anymore");
             }
-           
+
+            progressOfVolume.Value = Convert.ToInt32(piggyBank.currentVolume);
+            progressBar.Update();
         }
-    }
-    
+    }    
 }

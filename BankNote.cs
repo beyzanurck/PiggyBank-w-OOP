@@ -14,12 +14,16 @@ namespace PiggyBank
         public double Length { get; set; }
 
         public double Thickness { get; set; }
+        public bool folded = false;
 
         public bool Fold()
         {
-            Width = Width / 4;
-            Thickness = 4 * Thickness;
-
+            if (!folded)
+            {
+                Width = Width / 4;
+                Thickness = 4 * Thickness;
+                folded = true;
+            }
             return true;
         }
 

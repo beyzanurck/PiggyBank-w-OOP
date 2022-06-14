@@ -38,7 +38,6 @@
             this.pctBrokenOne = new System.Windows.Forms.PictureBox();
             this.pctTheBox = new System.Windows.Forms.PictureBox();
             this.cmbSelectMoney = new System.Windows.Forms.ComboBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctFixedOne)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctBrokenOne)).BeginInit();
@@ -143,20 +142,11 @@
             this.cmbSelectMoney.TabIndex = 4;
             this.cmbSelectMoney.Text = "Please Select Money";
             // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(174, 286);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(184, 96);
-            this.richTextBox1.TabIndex = 5;
-            this.richTextBox1.Text = "";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(517, 394);
-            this.Controls.Add(this.richTextBox1);
+            this.ClientSize = new System.Drawing.Size(517, 276);
             this.Controls.Add(this.cmbSelectMoney);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.btnBreakBox);
@@ -187,7 +177,6 @@
         private System.Windows.Forms.PictureBox pctBrokenOne;
         private System.Windows.Forms.PictureBox pctTheBox;
         private System.Windows.Forms.ComboBox cmbSelectMoney;
-        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

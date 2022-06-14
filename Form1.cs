@@ -75,8 +75,7 @@ namespace PiggyBank
                                 MessageBox.Show("The box is full");
                             }
 
-                            isFolded = false;
-                            richTextBox1.Text = piggyBank.currentVolume.ToString() + ", " + piggyBank.currentAmount.ToString();
+                            isFolded = false;                            
                         }
 
                         progressOfVolume.Value = Convert.ToInt32(piggyBank.currentVolume);
@@ -122,7 +121,7 @@ namespace PiggyBank
         {
             if (piggyBank.brokenNumber < 2)
             {
-                richTextBox1.Text = piggyBank.Shake().ToString();
+                piggyBank.Shake();
                 progressOfVolume.Value = Convert.ToInt32(piggyBank.currentVolume);
                 progressBar.Update();
             }
